@@ -1,46 +1,45 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int n,a[20][20],f[1<<20][20];
+int n;
+ll a[20][20];
+int x[20];
+int mask[20];
+ll result;
 
-int get(int x,int i)
+void backtrack(int pos, ll sum)
 {
-    return (x>>(i-1))&1;
+    if(sum > res) return;
+    if(pos==n+1)
+    {
+        //for(int i=1;i<=n;++i) cout<<x[i]<<' ';
+        //cout<<sum + a[x[pos]][x[1]]<<endl;
+        result = min(result, sum + a[x[n]][x[1]]);
+        return ;
+    }
+
+    for(int u=1;u<=n;++u) if(!mask[u])
+    {
+        x[pos] = u;
+        mask[u] = 1;
+        if(pos>1) backtrack(pos+1, sum + a[x[pos-1]][u]);
+        else
+            backtrack(pos+1, sum);
+
+        mask[u] = 0;
+    }
 }
 
 int main()
 {
-    //freopen("file.inp","r",stdin);
-    //freopen("file.out","w",stdout);
     cin>>n;
     for(int i=1;i<=n;++i)
         for(int j=1;j<=n;++j) cin>>a[i][j];
 
-    int xx=(1<<n)-1;
-    memset(f,0x3f3f3f,sizeof(f));
-    f[1][1]=0;
+    result = 1e18;
+    backtrack(1, 0);
 
-    for(int x=0;x<=xx;++x)
-    {
-        int t[20] ,cnt=0;
-
-        for(int i=1;i<=n;++i) t[i]=0;
-        for(int i=1;i<=n;++i) if(get(x,i)) t[++cnt]=i;
-        if(cnt<2) continue;
-        for(int i=1;i<=cnt;++i)
-        {
-            f[x][t[i]]=1e9;
-            int x1=x-(1<<(t[i]-1));
-            for(int j=1;j<=cnt;++j) if(i!=j)
-            {
-                f[x][t[i]]=min(f[x][t[i]],f[x1][t[j]]+a[t[j]][t[i]]);
-            }
-        }
-    }
-    int res=1e9;
-    for(int i=1;i<=n;++i) res=min(res,f[xx][i]+a[i][1]);
-    cout<<res<<endl;
+    cout<<result<<endl;
     return 0;
 }
-
-
