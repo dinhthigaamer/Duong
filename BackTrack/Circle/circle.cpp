@@ -7,12 +7,13 @@ int ans[22], mark[22];
 int res = 0;
 
 void backTrack(int pos) {
+    //for(int i=1;i<=2*n;++i) cout<<ans[i]<<' ';cout<<endl;
     if(pos == 2*n+1) {
         //for(int i=1;i<=2*n;++i) cout<<ans[i];cout<<endl;
         if(nt[ans[1]+ans[2*n]]) ++res;
         return ;
     }
-    //for(int i=1;i<=2*n;++i) cout<<ans[i];cout<<endl;
+
     int start = 3;
     if(ans[pos-1]%2==1) start=2;
 
@@ -23,6 +24,7 @@ void backTrack(int pos) {
         backTrack(pos+1);
 
         mark[i] = 0;
+        ans[pos] = 0;
     }
 }
 
