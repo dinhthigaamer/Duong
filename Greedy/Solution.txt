@@ -1,0 +1,7 @@
+Bài B:
+Ta cực đại hoá mảng c và cục tiểu hoá mảng b bằng cách cho phần tử lớn nhất ở đầu và cho phần tử nhỏ nhất đứng thứ hai.
+Do hai phần tử ở đầu luôn trừ nhau = 0 nên ta không cần quan tâm. Còn từ phần tử thứ hai trở đi thì mỗi phần tử của c đều
+là Max của mảng, của b đều là Min của mảng.
+
+Bài D:
+res = max(ceil((a1+a2+..+an)/x), max(a1,a2,...,an)).
